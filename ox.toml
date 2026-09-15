@@ -8,7 +8,7 @@ runtime = "executable"
 framework = "generic"
 package_manager = ""
 port = 9121
-environment_file = "/etc/ox/apps/oxzoo-cron.env"
+environment_file = "/etc/ox/projects/oxzoo-cron.env"
 required_packages = ["php-cli"]
 
 [[processes]]
