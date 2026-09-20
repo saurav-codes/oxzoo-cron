@@ -14,13 +14,13 @@ An official ox deploy example for scheduled work on a single Ubuntu VPS: a plain
 
 One variable, runtime only:
 
-**`GREETING_TAG`** is runtime env. ox writes it to `/etc/ox/apps/oxzoo-cron.env` (the `environment_file` in `ox.toml`) and injects it into every unit's environment. `heartbeat.php` reads it once at startup and refuses to run without it (a clear stderr message, exit 1), so a missing value fails loudly instead of printing an empty tag. Each `greet.php` run reads it fresh, so a new value shows up on the next scheduled run without a redeploy. Both faces print the same line: `hello world oxzoo-cron_<GREETING_TAG>`.
+**`GREETING_TAG`** is runtime env. ox writes it to `/srv/ox/oxzoo-cron/env` and injects it into every unit's environment. `heartbeat.php` reads it once at startup and refuses to run without it (a clear stderr message, exit 1), so a missing value fails loudly instead of printing an empty tag. Each `greet.php` run reads it fresh, so a new value shows up on the next scheduled run without a redeploy. Both faces print the same line: `hello world oxzoo-cron_<GREETING_TAG>`.
 
 There is no build step and no build-time env path: two plain scripts, nothing compiled, nothing baked.
 
 ## Deploy with ox
 
-1. Add the repo in the ox dashboard: paste the clone URL `https://github.com/saurav-codes/oxzoo-cron.git`.
+1. Add the repo in the ox dashboard: paste the clone URL `git@github.com:saurav-codes/oxzoo-cron.git`.
 2. In the Environment editor, set `GREETING_TAG=w3-07` before the first deploy.
 3. Press **Deploy**. ox installs `php-cli`, clones the repo into a git worktree, starts `php heartbeat.php` as a systemd process, and renders the greet job as a systemd timer. The manifest declares `port = 9121` because ox requires a project port even for projects that never listen; there is no `[[domains]]` table and nothing for nginx to route.
 
