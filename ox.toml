@@ -1,20 +1,8 @@
-# ox deploy manifest for oxzoo-cron: a heartbeat process plus a scheduled
-# cron job. ox renders [[cron_jobs]] as a systemd timer + oneshot service;
-# both commands read GREETING_TAG from the runtime environment.
+# A worker and a cron job, no web process at all.
+packages = ["php-cli"]
 
-name = "oxzoo-cron"
-branch = "main"
-runtime = "executable"
-package_manager = ""
-port = 9121
-required_packages = ["php-cli"]
+[workers]
+heartbeat = "php heartbeat.php"
 
-[[processes]]
-name = "heartbeat"
-command = "php heartbeat.php"
-restart_policy = "always"
-
-[[cron_jobs]]
-name = "greet"
-schedule = "*/2 * * * *"
-command = "php greet.php"
+[cron]
+greet = { schedule = "* * * * *", run = "php greet.php" }

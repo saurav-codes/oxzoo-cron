@@ -1,6 +1,6 @@
 <?php
 
-// One-shot cron run: stdout lands in the journal of this unit (ox-oxzoo-cron-cron-greet.service).
+// One cron run: stdout lands in the project's logs (ox logs, or the journal of ox-oxzoo-cron-cron-greet.service).
 
 $tag = getenv('GREETING_TAG');
 if ($tag === false || $tag === '') {
