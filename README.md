@@ -1,5 +1,7 @@
 # oxzoo-cron
 
+Deployed with [ox](https://deploywithox.com): deploy a repo to your own server with one command, no Docker. [Docs](https://deploywithox.com/docs) · [Stack guides](https://deploywithox.com/docs/guides)
+
 An official ox deploy example for scheduled work on a single Ubuntu VPS: a plain PHP 8 CLI project with two faces, a long-running **heartbeat** process that prints the greeting every 10 seconds, and a **greet** cron job that prints it once per run every 2 minutes. ox renders the `[[cron_jobs]]` table from `ox.toml` as a systemd oneshot service plus a timer with `Persistent=true`, so the schedule lives in systemd and you never edit a crontab. There is no web domain and no HTTP server here; both commands just print `hello world oxzoo-cron_<GREETING_TAG>`, and you verify them through `journalctl`.
 
 ## Stack
